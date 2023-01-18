@@ -14,13 +14,14 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "TEAM")
 public class TeamModel implements Serializable{
-	public enum Elo {UNRANKED, IRON, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, MASTER, GRANDMASTER, CHALLENGER}    
-	public enum Role {TOP, JG, MID, ADC, SUP}
+	public enum Elo {UNRANKED, IRON, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, MASTER, GRANDMASTER, CHALLENGER}
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
+	@Column(nullable = false)
+	private String team_name;
 	@Column(nullable = false)
 	private int n_players;
 	@Column(nullable = false)
@@ -31,15 +32,15 @@ public class TeamModel implements Serializable{
 	private int min_elo;
 	@Column(nullable = false)
 	private String status;
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private int player_top;
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private int player_jg;
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private int player_mid;
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private int player_adc;
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private int player_sup;
 	@Column(nullable = true)
 	private String description;
@@ -51,6 +52,12 @@ public class TeamModel implements Serializable{
 	}
 	public void setId(UUID id) {
 		this.id = id;
+	}
+	public String getTeam_name() {
+		return team_name;
+	}
+	public void setTeam_name(String team_name) {
+		this.team_name = team_name;
 	}
 	public int getN_players() {
 		return n_players;

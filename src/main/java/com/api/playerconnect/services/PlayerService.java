@@ -1,5 +1,8 @@
 package com.api.playerconnect.services;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
 import com.api.playerconnect.models.PlayerModel;
@@ -19,5 +22,14 @@ public class PlayerService {
 	@Transactional
 	public PlayerModel save(PlayerModel playerModel) {
 		return playerRepository.save(playerModel);
+	}
+
+	public Optional<PlayerModel> findById(UUID id) {
+		return playerRepository.findById(id);
+	}
+
+	@Transactional
+	public void delete(PlayerModel playerModel) {
+		playerRepository.delete(playerModel);
 	}
 }

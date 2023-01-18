@@ -14,8 +14,11 @@ public class PlayerDto {
 	private String game_mode;
 	@NotNull
 	private int position_1;
+	@NotNull
+	private int position_2;
 	@Size(max = 30)
 	private String description;
+
 	public String getNickname() {
 		return nickname;
 	}
@@ -39,6 +42,12 @@ public class PlayerDto {
 	}
 	public void setPosition_1(int position_1) {
 		this.position_1 = position_1;
+	}
+	public int getPosition_2() {
+		return position_2;
+	}
+	public void setPosition_2(int position_2) {
+		this.position_2 = position_2;
 	}
 	public String getDescription() {
 		return description;

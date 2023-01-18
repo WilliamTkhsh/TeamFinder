@@ -29,13 +29,13 @@ public class PlayerModel implements Serializable{
 	@Column(nullable = false)
 	private String game_mode;
 	@Column(nullable = false)
-	private int position_1;
+	private String position_1;
 	@Column(nullable = true)
-	private int position_2;
+	private String position_2;
 	@Column(nullable = false)
 	private int status;
 	@Column(nullable = true)
-	private TeamModel team_id;
+	private TeamModel team;
 	@Column(nullable = false)
 	private String description;
 	@Column(nullable = false)
@@ -65,16 +65,16 @@ public class PlayerModel implements Serializable{
 	public void setGame_mode(String game_mode) {
 		this.game_mode = game_mode;
 	}
-	public int getPosition_1() {
+	public String getPosition_1() {
 		return position_1;
 	}
-	public void setPosition_1(int position_1) {
+	public void setPosition_1(String position_1) {
 		this.position_1 = position_1;
 	}
-	public int getPosition_2() {
+	public String getPosition_2() {
 		return position_2;
 	}
-	public void setPosition_2(int position_2) {
+	public void setPosition_2(String position_2) {
 		this.position_2 = position_2;
 	}
 	public int getStatus() {
@@ -83,11 +83,11 @@ public class PlayerModel implements Serializable{
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public TeamModel getTeam_id() {
-		return team_id;
+	public TeamModel getTeam() {
+		return team;
 	}
-	public void setTeam_id(TeamModel team_id) {
-		this.team_id = team_id;
+	public void setTeam_id(TeamModel team) {
+		this.team = team;
 	}
 	public LocalDateTime getCreatedDate() {
 		return createdDate;
