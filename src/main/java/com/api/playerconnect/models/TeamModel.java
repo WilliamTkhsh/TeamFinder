@@ -9,43 +9,63 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "TEAM")
 public class TeamModel implements Serializable{
-	public enum Elo {UNRANKED, IRON, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, MASTER, GRANDMASTER, CHALLENGER}
+	//public enum Elo {UNRANKED, IRON, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, MASTER, GRANDMASTER, CHALLENGER}
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
+	
 	@Column(nullable = false)
 	private String team_name;
+	
 	@Column(nullable = false)
 	private int n_players;
+	
 	@Column(nullable = false)
 	private String game_mode;
+	
 	@Column(nullable = false)
 	private int average_elo;
+	
 	@Column(nullable = false)
 	private int min_elo;
+	
 	@Column(nullable = false)
 	private String status;
+	
 	@Column(nullable = false)
 	private int player_top;
+	
 	@Column(nullable = false)
 	private int player_jg;
+	
 	@Column(nullable = false)
 	private int player_mid;
+	
 	@Column(nullable = false)
 	private int player_adc;
+	
 	@Column(nullable = false)
 	private int player_sup;
+	
 	@Column(nullable = true)
 	private String description;
+	
 	@Column(nullable = false)
 	private LocalDateTime createdDate;
+	
+	@ManyToOne
+	@JoinColumn(name= "PLAYER_ID")
+	private PlayerModel player;
+	
 	
 	public UUID getId() {
 		return id;
@@ -130,6 +150,13 @@ public class TeamModel implements Serializable{
 	}
 	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
+	}
+	
+	public PlayerModel getPlayer() {
+		return player;
+	}
+	public void setPlayer(PlayerModel player) {
+		this.player = player;
 	}
 	
 	

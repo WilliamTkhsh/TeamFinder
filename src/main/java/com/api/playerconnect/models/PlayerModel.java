@@ -2,6 +2,7 @@ package com.api.playerconnect.models;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -9,43 +10,68 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 
 @Entity
 @Table(name = "PLAYER")
 public class PlayerModel implements Serializable{
-	public enum Elo {UNRANKED, IRON, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, MASTER, GRANDMASTER, CHALLENGER}    
-	public enum Role {TOP, JG, MID, ADC, SUP}
+	public enum Elo {UNRANKED, IRON, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, MASTER, GRANDMASTER, CHALLENGER};
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@Column(nullable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	private Long id;
+	
+	@OneToOne
+	private UserModel user;
+	
 	@Column(nullable = false, unique = true)
 	private String nickname;
+	
 	@Column(nullable = false)
 	private int elo;
+	
 	@Column(nullable = false)
 	private String game_mode;
+	
 	@Column(nullable = false)
 	private String position_1;
+	
 	@Column(nullable = true)
 	private String position_2;
+	
 	@Column(nullable = false)
-	private int status;
+	private String status;
+	
 	@Column(nullable = true)
-	private TeamModel team;
+	@OneToMany(mappedBy = "player")
+	private List<TeamModel> teamCreated;
+	
 	@Column(nullable = false)
 	private String description;
+	
 	@Column(nullable = false)
 	private LocalDateTime createdDate;
 	
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public void setUser(UserModel user) {
+		this.user = user;
+	}
+	public UserModel getUser() {
+		return user;
 	}
 	public String getNickname() {
 		return nickname;
@@ -77,18 +103,20 @@ public class PlayerModel implements Serializable{
 	public void setPosition_2(String position_2) {
 		this.position_2 = position_2;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
-	public TeamModel getTeam() {
-		return team;
+	
+	public List<TeamModel> getTeamCreated() {
+		return teamCreated;
 	}
-	public void setTeam_id(TeamModel team) {
-		this.team = team;
+	public void setTeamCreated(List<TeamModel> teamCreated) {
+		this.teamCreated = teamCreated;
 	}
+	
 	public LocalDateTime getCreatedDate() {
 		return createdDate;
 	}

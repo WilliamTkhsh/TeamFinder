@@ -12,10 +12,10 @@ public class PlayerDto {
 	private int elo;
 	@NotBlank
 	private String game_mode;
-	@NotNull
-	private int position_1;
-	@NotNull
-	private int position_2;
+	@NotBlank
+	private String position_1;
+	@NotBlank
+	private String position_2;
 	@Size(max = 30)
 	private String description;
 
@@ -37,16 +37,16 @@ public class PlayerDto {
 	public void setGame_mode(String game_mode) {
 		this.game_mode = game_mode;
 	}
-	public int getPosition_1() {
+	public String getPosition_1() {
 		return position_1;
 	}
-	public void setPosition_1(int position_1) {
+	public void setPosition_1(String position_1) {
 		this.position_1 = position_1;
 	}
-	public int getPosition_2() {
+	public String getPosition_2() {
 		return position_2;
 	}
-	public void setPosition_2(int position_2) {
+	public void setPosition_2(String position_2) {
 		this.position_2 = position_2;
 	}
 	public String getDescription() {

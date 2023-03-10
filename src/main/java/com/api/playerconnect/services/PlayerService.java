@@ -24,7 +24,7 @@ public class PlayerService {
 		return playerRepository.save(playerModel);
 	}
 
-	public Optional<PlayerModel> findById(UUID id) {
+	public Optional<PlayerModel> findById(Long id) {
 		return playerRepository.findById(id);
 	}
 

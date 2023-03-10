@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,10 +46,6 @@ public class TeamController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(teamService.save(teamModel));
 	}
 	
-	public int calcularMedia(int elo_top, int elo_jg, int elo_mid, int elo_adc, int elo_sup) {
-		return (elo_top + elo_jg + elo_mid + elo_adc + elo_sup)/5; 
-	}
-	
 	@GetMapping
 	public ResponseEntity<List<TeamModel>> getAllParkingSpots(){
 		return ResponseEntity.status(HttpStatus.OK).body(teamService.findAll());
@@ -64,4 +61,31 @@ public class TeamController {
 		return ResponseEntity.status(HttpStatus.OK).body("Time deletado com sucesso!");
 	}
 	
+	@PutMapping("/{id}")
+	public ResponseEntity<Object> updateTeam(@PathVariable(value = "id") UUID id, 
+											@RequestBody @Valid TeamDto teamDto){
+		Optional<TeamModel> teamOptional = teamService.findById(id);
+		if(!teamOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Time não encontrado.");
+		}
+		var teamModel = teamOptional.get();
+		
+		teamModel.setTeam_name(teamDto.getTeam_name());
+		teamModel.setGame_mode(teamDto.getGame_mode());
+		teamModel.setMin_elo(teamDto.getMin_elo());
+		teamModel.setPlayer_top(teamDto.getPlayer_top());
+		teamModel.setPlayer_jg(teamDto.getPlayer_jg());
+		teamModel.setPlayer_mid(teamDto.getPlayer_mid());
+		teamModel.setPlayer_adc(teamDto.getPlayer_adc());
+		teamModel.setPlayer_sup(teamDto.getPlayer_sup());
+		teamModel.setDescription(teamDto.getDescription());
+		teamModel.setAverage_elo(calcularMedia(teamModel.getPlayer_top(), teamModel.getPlayer_jg(),teamModel.getPlayer_mid(),teamModel.getPlayer_adc(),teamModel.getPlayer_sup()));
+		
+		return ResponseEntity.status(HttpStatus.OK).body(teamService.save(teamModel));
+	}
+	
+	
+	public int calcularMedia(int elo_top, int elo_jg, int elo_mid, int elo_adc, int elo_sup) {
+		return (elo_top + elo_jg + elo_mid + elo_adc + elo_sup)/5; 
+	}
 }
